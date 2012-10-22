@@ -20,6 +20,7 @@
 		(function(nativeDate){
 			// It appears that the modification to Date constructor done by ie.js negatively affects new Date("X"), ending up a JS error.
 			// Using the native Date constructor for that case.
+            // https://github.com/kriskowal/es5-shim/issues/122
 			var origDate = Date;
 			Date = function(){
 				return (arguments.length == 1 && typeof arguments[0] == "string" ? nativeDate : origDate).apply(this, [].slice.call(arguments, 0));
