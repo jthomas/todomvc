@@ -19,7 +19,7 @@ define([
 		//		This will be used to read the initial items, if available, and persist the current items when the application finishes.
 		store: null,
 
-		// modelClass: todo/model/SimpleTodoModel
+		// modelClass: todo/model/TodoModel
 		//		The class of our data model, based on dojo/Stateful and dojox/mvc/StatefulArray.
 		//		This will be used to automatically keep various Todo properties (e.g. number of complete/incomplete items) consistent, and to auto-generate properties (e.g. default unique IDs).
 		modelClass: null,
@@ -41,11 +41,11 @@ define([
 			// summary:
 			//		An object that specifies how a data model based on dojo/Stateful and dojox/mvc/StatefulArray should be converted to a plain object, to be saved to Dojo Object Store.
 
-			getType: function(/*todo/model/SimpleTodoModel*/ o){
+			getType: function(/*todo/model/TodoModel*/ o){
 				return "specifiedModel"; // We are converting given data model at once, instead of using per-data-item based data conversion callbacks
 			},
 
-			getPlainSpecifiedModel: function(/*todo/model/SimpleTodoModel*/ o){
+			getPlainSpecifiedModel: function(/*todo/model/TodoModel*/ o){
 				return { // Pick up only meaningful data here
 					id: o.id,
 					todos: array.map(o.todos, function(item){ return {title: item.title, completed: item.completed }; }),
