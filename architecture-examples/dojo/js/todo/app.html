@@ -82,11 +82,9 @@
 			</li>
 		</ul>
 		<button id="clear-completed" onclick="${id}_listCtrl.removeCompletedItems();">
-			Clear completed (
-			<span class="number-done"
+			Clear completed (<span class="number-done"
 			 data-dojo-type="dijit/_WidgetBase"
-			 data-dojo-props="_setValueAttr: {type: 'innerText', node: 'domNode'}, value: at(${id}_ctrl, 'complete')"></span>
-			)
+			 data-dojo-props="_setValueAttr: {type: 'innerText', node: 'domNode'}, value: at(${id}_ctrl, 'complete')"></span>)
 		</button>
 	</footer>
 </section>
