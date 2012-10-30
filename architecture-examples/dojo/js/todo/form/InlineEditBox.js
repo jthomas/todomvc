@@ -1,22 +1,35 @@
 /**
  * Extension to the "InlineEditBox" widget to support editing on double click
- * events rather than single clicks. We need to override base "postMixInProperties"
- * lifecycle method where the event handlers are setup. This method is just a clone
- * of that code with the modified event list.
+ * events rather than single clicks, and not to select input when user switches to
+ * in-line editing mode. We need to override base "postMixInProperties" lifecycle
+ * method where the event handlers are setup. This method is just a clone of that
+ * code with the modified event list.
  */
 define([
+    "dijit/focus",
 	"dijit/InlineEditBox",
 	"dojo/_base/declare",
 	"dojo/_base/lang",
 	"dojo/dom-class"
-], function (InlineEditBox, declare, lang, domClass) {
+], function (fm, InlineEditBox, declare, lang, domClass) {
 
-    InlineEditBox._InlineEditor.prototype._onChange = function () {
-        if(this.inlineEditBox.autoSave && this.inlineEditBox.editing && this.enableSave()){
-			this._onBlur();
-		}
+    lang.extend(InlineEditBox._InlineEditor, {
+        _onChange: function(){
+            if(this.inlineEditBox.autoSave && this.inlineEditBox.editing && this.enableSave()){
+                this._onBlur();
+            }
+        },
 
-    };
+        focus: function(){
+            this.editWidget.focus();
+
+            if(this.editWidget.focusNode){
+                // IE can take 30ms to report the focus event, but focus manager needs to know before a 0ms timeout.
+                fm._onFocusNode(this.editWidget.focusNode);
+            }
+        }
+    });
+
     return declare("todo.form.InlineEditBox", InlineEditBox, {
 
 	    postMixInProperties: function () {
